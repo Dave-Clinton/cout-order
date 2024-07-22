@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-x*%o4w2js7&rm_2u!__r$hbpbel9jm(1%*ww-+lyjw%dk3snu6
 DEBUG = True
 
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = ['.vercel.app']
-ALLOWED_HOSTS = os.getenv('Allowed_hosts', '127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1.vercel.app').split(',')
 
 if DEBUG:
     SITE_URL = 'http://127.0.0.1:8000'
