@@ -1,0 +1,117 @@
+
+
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="{% static 'scripts.js' %}"></script>
+
+</head>
+  
+<body>
+
+    <div class="register-container">
+        {% include 'navbar.html' %}   
+
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+       <div class="reg-container">
+    
+         <form method="post" action="{% url 'register' %}" >
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" required>
+            </div>
+            <div class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="password2">Confirm Password</label>
+                <input type="password" id="password2" name="password2" required>
+            </div>
+            <button type="submit" class="btn">Register</button>
+            <div class="form-footer">
+                <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+            </div>   
+        </form>
+       </div> 
+       <div class="tainer">
+        <div class="card-header">
+            <h1>Services Available through the E-filing Portal</h1>
+    
+            <h1>How to</h1>
+    
+        </div>
+        <div class="card-container">
+                
+            <div class="card" id="file-case" >
+                <h5>File A New Case</h5>
+                <p>This mainly involves filing a fresh case with end result being allocation/generation of a case number. Filed by initiator case party types e.g., Plaintiff, Petitioner, etc.</p>
+                <p>Once successfully logged in, the litigant/user can initiate the process by clicking the ‘File New Case’ button.</p>
+                <p>The litigant will be prompted to select the Court Station and division in which the case is being filed and click the ‘Proceed’ button.</p>
+                <p>The system loads a step-by-step wizard breaking down the case filing process into four steps.</p>
+                <p>For step 1, the litigant is prompted to select what is to be filed, by picking from a list of options e.g., Liquidated Plaint, Non-Liquidated Plaint. Upon selection, the system displays the documents to be filed grouped as a bundle of documents depending on the case type.</p>
+                <p>The litigant is further prompted to enter the value of the case and specify if there is any other application e.g., Application Under Certificate of Urgency.</p>
+                <p>The selections in this step determine the case type being filed.</p>
+                <p>In step 2, litigant adds case parties and uploads documents. It’s only the case party who is initiating the case that will have the option to upload documents.</p>
+                <p>In step 3, the litigant is prompted to enter case prayers and any other additional information required for the specific case type e.g., deceased details for a succession case.</p>
+                <p>In step 4, the litigant confirms all the details, then submits.</p>
+                <p>The new case will appear on the litigant’s dashboard, but without a case number. On viewing the case details, under the Case Fees tab, the litigant can view the fees associated with the case.</p>
+            </div>
+            <div class="card" id="payment" >
+                <h5>Pay</h5>
+                <p>Payment can be done via MPESA or direct bank deposit.</p>
+                <p>When using MPESA, the Customer Reference Number is used as the account number.</p>
+                <p>When using direct Bank Deposit, the litigant is advised to ensure that the Customer Reference Number is captured by the Bank Cashier to enable the system to process the transaction.</p>
+                <p>Once the full payment is received by the Bank, the system will automatically generate a case number.</p>
+            </div>
+        </div>
+    </div>
+    
+    </div>
+    
+</body>
+</html>
+{% endblock %}
+
+
+
+<script>
+    // Automatically fade out messages after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        var alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            setTimeout(function() {
+                alert.style.opacity = '0';
+                setTimeout(function() {
+                    alert.style.display = 'none';
+                }, 1000); // Fade out takes 1 second, then hide the element
+            }, 5000); // Show for 5 seconds before starting to fade out
+        });
+    });
+
+
+</script>
+
+

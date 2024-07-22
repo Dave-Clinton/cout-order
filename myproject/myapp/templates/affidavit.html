@@ -1,0 +1,11 @@
+{% include 'navbar.html' %}
+
+{% block content %}
+<h2>Add Affidavit</h2>
+<form method="post" action="{% url 'add_affidavit' profile_id=profile.id %}">
+    {% csrf_token %}
+    <textarea name="content" placeholder="Enter affidavit content" required></textarea><br>
+    <button type="submit">Add Affidavit</button>
+</form>
+{% endblock %}
+

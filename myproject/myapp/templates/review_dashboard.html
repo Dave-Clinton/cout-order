@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Review Dashboard</title>
+    <style>
+     body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+}
+
+.profile-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.profile-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-item h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.profile-item p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.status.complete {
+    background-color: #28a745;
+}
+
+.status.review {
+    background-color: #ffc107;
+}
+
+.status.revision {
+    background-color: #dc3545;
+}
+
+.done-note {
+    color: #28a745;
+    font-weight: bold;
+}
+
+.action-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    text-align: center;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .action-form {
+        flex-direction: column;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>User Profiles</h1>
+        <ul class="profile-list">
+            {% for profile in profiles %}
+            <li class="profile-item">
+                <h2>{{ profile.user.username }}</h2>
+                <p>First Name: {{ profile.first_name }}</p>
+                <p>Last Name: {{ profile.last_name }}</p>
+
+                {% for affidavit in affidavits %}
+                {% if affidavit.profile == profile %}
+                    <p>Affidavit Content: {{ affidavit.content }}</p>
+                    <p class="status {% if affidavit.status == 'complete' %}complete{% elif affidavit.status == 'active' %}review{% elif affidavit.status == 'in_revision' %}revision{% endif %}">
+                        Status: {{ affidavit.get_status_display }}
+                    </p>
+                    {% if affidavit.edited %}
+                        <p><strong>This affidavit has been edited and is being reviewed again.</strong></p>
+                    {% endif %}
+
+                    {% if affidavit.status == 'complete' %}
+                        <p class="done-note">This affidavit is marked as complete.</p>
+                    {% else %}
+                    <form method="post" class="action-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="affidavit_id" value="{{ affidavit.id }}">
+                        <button type="submit" name="action" value="return" class="btn">Return for Revision</button>
+                        <button type="submit" name="action" value="complete" class="btn">Mark as Complete</button>
+                    </form>
+                    {% endif %}
+                    <a href="{% url 'download_affidavits_csv' profile.id %}" class="btn">Download Affidavits CSV</a>
+                {% endif %}
+                {% endfor %}
+            {% empty %}
+                <p>No affidavit available for this profile.</p>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+</html>

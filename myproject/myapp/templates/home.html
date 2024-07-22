@@ -1,0 +1,87 @@
+<!-- myapp/templates/myapp/home.html -->
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+    <title>Dashboard</title>      
+</head>
+  
+<body>
+    {% include 'navbar.html' %}   
+
+    <div class="header">
+    </div>
+    <div class="container">
+        <div class="dashboard">
+            <div class="card">Payable Amount: <span id="payable">10 Ksh</span></div>
+            <div class="sign">-</div>
+            <div class="card">Paid Amount: <span id="paid">500 Ksh</span></div>
+            <div class="sign">=</div>
+            <div class="card">Balance: <span id="balance">500 Ksh</span></div>
+        </div>
+    </div>
+
+<div class="container">
+    <h1>User Profile Details</h1>
+        <a href="{% url 'download_profile_csv' profile.id %}" class="btn">Download Case File CSV</a>
+    {% if completed_affidavits %}
+        <ul>
+            {% for affidavit in completed_affidavits %}
+                <li>
+                    <p>Content: {{ affidavit.content }}</p>
+                    <p>Status: {{ affidavit.status|title }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'download_affidavits_csv' profile.id %}">Download Affidavits CSV</a>
+
+    {% else %}
+        <p>No completed affidavits available.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

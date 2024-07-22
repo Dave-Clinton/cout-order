@@ -1,0 +1,418 @@
+/* navbar.css */
+.messages {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 6px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    animation: fadeOut 5s forwards;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+
+
+
+/* user dashboard */
+/* Container for the cards */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Adjust the gap between cards */
+    justify-content: center; /* Center the cards */
+}
+
+/* Individual card style */
+.card {
+    background-color: #fff; /* White background for the card */
+    border: 1px solid #ddd; /* Light border around the card */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    flex: 1 1 calc(33.333% - 32px); /* Adjusts to fit 3 cards per row */
+    max-width: calc(33.333% - 32px); /* Ensures max width per card */
+    margin: 8px; /* Margin around the card */
+    padding: 16px; /* Padding inside the card */
+    box-sizing: border-box; /* Ensures padding is included in the card's width */
+}
+
+/* Text inside the card */
+.card p {
+    font-size: 16px; /* Adjust font size */
+    line-height: 1.5; /* Line height for readability */
+    overflow-wrap: break-word; /* Ensures long words break to fit inside the card */
+    text-align: center; /* Center align text inside the card */
+}
+
+
+
+
+
+
+.dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+.sign {
+    font-size: 2rem;
+    margin: 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .dashboard {
+        flex-direction: column;
+    }
+
+    .sign {
+        font-size: 1.5rem;
+        margin: 5px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+th {
+    background-color: #f2f2f2;
+    min-width: 150px; /* Adjust as needed */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+    th, td {
+        padding: 10px;
+    }
+}
+
+/* For very small devices */
+@media (max-width: 576px) {
+    th, td {
+        padding: 5px;
+    }
+}
+
+/* Flex layout for table headers */
+thead {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+/* Container for horizontal scrolling */
+.scroll-container {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* file_new_case */
+.fill-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-container {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: bold;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.additional-dropdowns {
+    display: none; /* Hide additional dropdowns initially */
+    margin-top: 15px;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dropdown {
+    flex: 1 1 200px;
+}
+
+button[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .dropdown {
+        flex: 1 1 100%;
+    }
+}
+
+
+
+.reg-container {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+
+/* cards */
+/* Container styling */
+
+
+
+
+
+
+
+
+
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn {
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding: 15px;
+    }
+
+    .btn {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+.form-footer {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.form-footer a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+thead {
+    background-color: #f2f2f2;
+}
+
+th, td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+@media screen and (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin-bottom: 1rem;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        white-space: nowrap;
+    }
+
+    td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: calc(50% - 20px);
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+    }
+}
