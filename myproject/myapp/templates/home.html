@@ -30,11 +30,17 @@
 </head>
   
 <body>
-    {% include 'navbar.html' %}   
+{% if user.profile.is_admin %}
+             <a href="{% url 'dashboard' %}" class="btn">Admin Dashboard</a>
+             <a href="{% url 'review_dashboard' %}" class="btn">review Dashboard</a>
+      {% else %}
+
+      {% include 'navbar.html' %}   
+
 
     <div class="header">
     </div>
-    <div class="container">
+     <div class="container">
         <div class="dashboard">
             <div class="card">Payable Amount: <span id="payable">10 Ksh</span></div>
             <div class="sign">-</div>
@@ -44,7 +50,7 @@
         </div>
     </div>
 
-<div class="container">
+  <div class="container">
     <h1>User Profile Details</h1>
         <a href="{% url 'download_profile_csv' profile.id %}" class="btn">Download Case File CSV</a>
     {% if completed_affidavits %}
@@ -61,7 +67,8 @@
     {% else %}
         <p>No completed affidavits available.</p>
     {% endif %}
-</div>
+ </div>
+{% endif %}
 
 </body>
 </html>

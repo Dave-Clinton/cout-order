@@ -14,6 +14,3 @@ class AffidavitAdmin(admin.ModelAdmin):
     search_fields = ('profile__user__username','status' )
 
 admin.site.register(Affidavit, AffidavitAdmin)
-
-
-

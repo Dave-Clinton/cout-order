@@ -25,14 +25,15 @@ SECRET_KEY = 'django-insecure-x*%o4w2js7&rm_2u!__r$hbpbel9jm(1%*ww-+lyjw%dk3snu6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = os.getenv( '127.0.0.1','court-filling.vercel.app').split(',')
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,'*']
+#if DEBUG:
+   # ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,'*']
+#else:
+   # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*', 'fidel005.pythonanywhere.com').split(',')
 
-if DEBUG:
-    SITE_URL = 'http://127.0.0.1:8000'
-else:
-    SITE_URL = os.getenv('SITE_URL', 'http://court-filling.vercel.app/')
-
+#SITE_URL = 'http://127.0.0.1:8000' if DEBUG else os.getenv('SITE_URL', 'https://fidel005.pythonanywhere.com/')
 
 # Application definition
 
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -127,6 +129,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS= os.path.join (BASE_DIR,'static'),
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -165,3 +168,13 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 LOGIN_URL = 'register'
 LOGIN_REDIRECT_URL = 'home'
+
+
+
+ADMIN_EMAILS = [
+    'goergew424@gmail.com',
+    'admin2@example.com',
+    'admin3@example.com',
+    'admin4@example.com',
+    'admin5@example.com',
+]

@@ -7,6 +7,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email_verified = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
     verification_code = models.UUIDField(default=uuid.uuid4, editable=False)
     is_verified = models.BooleanField(default=False)
     court_selection = models.CharField(max_length=50, blank=True, null=True)
@@ -36,7 +37,6 @@ class Profile(models.Model):
     cause_of_action = models.CharField(max_length=255, blank=True, null=True)
     problem = models.TextField(blank=True, null=True)
     ocs_police_station = models.CharField(max_length=100, blank=True, null=True)
-
     def __str__(self):
         return f'{self.user.username} Profile'
 

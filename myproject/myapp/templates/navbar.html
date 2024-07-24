@@ -3,10 +3,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <div class="navbar-links" id="js-menu">
-    <label for="nav-toggle" class="hamburger">
+    <div id="hamburger" class="hamburger">
         <i class="fas fa-bars"></i>
-    </label>
-    <ul class="nav-list">
+    </div>
+    <div id="close-icon" class="close-icon">
+        <i class="fas fa-times"></i>
+    </div>
+    <ul class="nav-list" id="nav-list">
         <li class="nav-item">
             <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
         </li>
@@ -32,15 +35,26 @@
 </div>
 <script>
  
-// scripts.js
-document.addEventListener("DOMContentLoaded", function() {
-    const hamburger = document.getElementById("js-hamburger");
-    const navList = document.getElementById("js-nav-list");
+ document.addEventListener("DOMContentLoaded", function() {
+    const hamburger = document.getElementById('hamburger');
+    const closeIcon = document.getElementById('close-icon');
+    const navList = document.getElementById('nav-list');
 
-    hamburger.addEventListener("click", function() {
-        navList.classList.toggle("active");
+    closeIcon.style.display = 'none';
+
+    hamburger.addEventListener('click', function() {
+        navList.style.display = 'block';
+        hamburger.style.display = 'none';
+        closeIcon.style.display = 'block';
+    });
+
+    closeIcon.addEventListener('click', function() {
+        navList.style.display = 'none';
+        closeIcon.style.display = 'none';
+        hamburger.style.display = 'block';
     });
 });
+
 
 </script>
 <link rel="stylesheet" href="{% static 'css/styles.css' %}">

@@ -24,6 +24,13 @@ from django.utils.encoding import force_str
 from django.core.validators import validate_email
 from django.contrib.auth import authenticate, login as auth_login
 from django.contrib.auth.tokens import default_token_generator
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Profile, Affidavit
+from django.contrib.auth.decorators import user_passes_test
+
+
+
+
 
 
 def register(request):
@@ -40,10 +47,12 @@ def register(request):
             elif len(password) < 8 or not any(char.isdigit() for char in password) or not any(char.isalpha() for char in password) or not any(char.islower() for char in password) or not any(char.isupper() for char in password):
                 messages.error(request, 'Password must be at least 8 characters long, contain both numbers and letters, and have both lowercase and uppercase letters')
             else:
-                user = User.objects.create_user(username=email, email=email, password=password)
+                is_admin = email in settings.ADMIN_EMAILS
+                user = User.objects.create_user(username=email, email=email, password=password)  # Create a regular user
                 user.save()
                 verification_code = uuid.uuid4()
                 profile = Profile(user=user, first_name=first_name, last_name=last_name, verification_code=verification_code)
+                profile.is_admin = is_admin  # Assign admin status based on email
                 profile.save()
                 send_verification_email(user, verification_code)
                 messages.success(request, 'Registration successful. Please check your email to verify your account.')
@@ -52,6 +61,14 @@ def register(request):
             messages.error(request, 'Passwords do not match')
 
     return render(request, 'register.html')
+
+
+
+
+
+
+
+
 
 
 
@@ -67,6 +84,7 @@ def send_verification_email(user, verification_code):
     from_email = settings.DEFAULT_FROM_EMAIL
     recipient_list = [user.email]
     send_mail(subject, message, from_email, recipient_list)
+
 
 
 
@@ -92,6 +110,12 @@ def verify_email(request, uidb64, token):
 
 def verify (request):
     return render (request, 'verify.html')
+
+
+
+
+
+
 
 
 def login_view(request):
@@ -120,6 +144,40 @@ def login_view(request):
             messages.error(request, 'Invalid credentials')
 
     return render(request, 'login.html')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -175,6 +233,7 @@ def password_reset_confirm(request, uidb64, token):
         return redirect('password_reset_form')
 
 
+from django.contrib.auth.models import User
 
 
 
@@ -191,10 +250,29 @@ def home(request):
 
 
 
-
 def logout_view(request):
     logout(request)
     return redirect('login')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @login_required
@@ -315,8 +393,6 @@ def generate_access_token():
 def mpesa_stk_push(request):
     return render(request, 'mpesa_stk_push.html')
 
-
- 
  
 
 def sendStkPush(phone_number, amount):
@@ -384,12 +460,10 @@ def stk_push(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error': 'Invalid request'}, status=400)
-
-
-
-
 @login_required
 def dashboard(request):
+    if request.user.email not in settings.ADMIN_EMAILS:
+        return HttpResponseForbidden("You do not have permission to access this page.")
     profiles = Profile.objects.all()
     affidavits = Affidavit.objects.all()
     
@@ -403,12 +477,6 @@ def dashboard(request):
     
     return render(request, 'dashboard.html', context)
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from .models import Profile, Affidavit
-from .forms import AffidavitForm
-
-@login_required
 @login_required
 def add_affidavit(request, profile_id):
     profile = get_object_or_404(Profile, id=profile_id)
@@ -416,7 +484,7 @@ def add_affidavit(request, profile_id):
     # Redirect if affidavit already exists
     if Affidavit.objects.filter(profile=profile).exists():
         return redirect('dashboard')
-    
+
     if request.method == 'POST':
         # Extract data from POST request
         content = request.POST.get('content')
@@ -429,8 +497,7 @@ def add_affidavit(request, profile_id):
     # Render the template if GET request or invalid POST data
     return render(request, 'affidavit.html', {'profile': profile})
 
-   
-
+@login_required
 def review_dashboard(request):
     profiles = Profile.objects.all()
     affidavits = Affidavit.objects.select_related('profile').all()
@@ -469,7 +536,6 @@ def edit_affidavit(request, affidavit_id):
     
     return render(request, 'edit_affidavit.html', {'affidavit': affidavit})
 
-
 @login_required
 def delete_affidavit(request, affidavit_id):
     affidavit = get_object_or_404(Affidavit, id=affidavit_id)
@@ -477,10 +543,6 @@ def delete_affidavit(request, affidavit_id):
         affidavit.delete()
         return redirect('dashboard')
     return render(request, 'confirm_delete.html', {'affidavit': affidavit})
-
-
-
-
 
 
 #csv
@@ -523,7 +585,6 @@ def download_profiles_csv(request):
         ])
 
     return response
-
 
 
 
@@ -606,8 +667,6 @@ def download_affidavits_csv(request, profile_id):
         writer.writerow([affidavit.content, affidavit.get_status_display(), affidavit.edited])
 
     return response
-
-
 
 
 
