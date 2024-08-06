@@ -41,29 +41,29 @@ DEBUG = False
 
 import os
 
-DEBUG = os.environ.get('DEBUG', False)  # Default to False for production
+#DEBUG = os.environ.get('DEBUG', False)  # Default to False for production
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ 'localhost', '127.0.0.1', '.vercel.app']
 
-if DEBUG:
+#if DEBUG:
     # Allow development hosts: localhost and 127.0.0.1
-    ALLOWED_HOSTS += ['localhost', '127.0.0.1']
+  #  ALLOWED_HOSTS += ['localhost', '127.0.0.1']
 
     # Optionally allow Vercel development environment (if using)
     # ALLOWED_HOSTS += ['cout-order.vercel.app']  # Uncomment if applicable
 
     # Set development site URL
-    SITE_URL = 'http://localhost:8000'
-else:
+   # SITE_URL = 'http://localhost:8000'
+#else:
     # Use environment variables for production settings
-    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')  # Fallback to '*'
-    SITE_URL = os.environ.get('DOMAIN_NAME', 'https://cout-order.vercel.app')  # Replace with your production domain
+   # ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')  # Fallback to '*'
+   # SITE_URL = os.environ.get('DOMAIN_NAME', 'https://cout-order.vercel.app')  # Replace with your production domain
 
     # Ensure sensitive configuration is set in production
-    if not ALLOWED_HOSTS:
-        raise Exception('ALLOWED_HOSTS must be set in production environment!')
-    if not SITE_URL:
-        raise Exception('SITE_URL must be set in production environment!')
+    #if not ALLOWED_HOSTS:
+      #  raise Exception('ALLOWED_HOSTS must be set in production environment!')
+    #if not SITE_URL:
+      #  raise Exception('SITE_URL must be set in production environment!')
 
 
 
