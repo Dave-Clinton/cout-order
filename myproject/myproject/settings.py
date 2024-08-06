@@ -23,19 +23,53 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x*%o4w2js7&rm_2u!__r$hbpbel9jm(1%*ww-+lyjw%dk3snu6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,'*']
-if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,'*']
-else:
-    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*', 'fidel005.pythonanywhere.com').split(',')
+#DEBUG = os.getenv('DEBUG', 'True') == 'True'
+#ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,'*']
+#if DEBUG:
+  #  ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,'*']
+#else:
+   # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*', 'fidel005.pythonanywhere.com').split(',')
 
-SITE_URL = 'http://127.0.0.1:8000' if DEBUG else os.getenv('SITE_URL', 'https://fidel005.pythonanywhere.com/')
+#SITE_URL = 'http://127.0.0.1:8000' if DEBUG else os.getenv('SITE_URL', 'https://fidel005.pythonanywhere.com/')
 
 # Application definition
+
+
+
+import os
+
+DEBUG = os.environ.get('DEBUG', False)  # Default to False for production
+
+ALLOWED_HOSTS = []
+
+if DEBUG:
+    # Allow development hosts: localhost and 127.0.0.1
+    ALLOWED_HOSTS += ['localhost', '127.0.0.1']
+
+    # Optionally allow Vercel development environment (if using)
+    # ALLOWED_HOSTS += ['cout-order.vercel.app']  # Uncomment if applicable
+
+    # Set development site URL
+    SITE_URL = 'http://localhost:8000'
+else:
+    # Use environment variables for production settings
+    ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')  # Fallback to '*'
+    SITE_URL = os.environ.get('DOMAIN_NAME', 'https://cout-order.vercel.app')  # Replace with your production domain
+
+    # Ensure sensitive configuration is set in production
+    if not ALLOWED_HOSTS:
+        raise Exception('ALLOWED_HOSTS must be set in production environment!')
+    if not SITE_URL:
+        raise Exception('SITE_URL must be set in production environment!')
+
+
+
+
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
