@@ -6,7 +6,7 @@
     <title>Add Affidavit</title>
 </head>
 <body>
-    <h1>Add Affidavit for {{ profile.user.username }}</h1>
+    <h1>Add Affidavit for {{ profile.user.username }} </h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

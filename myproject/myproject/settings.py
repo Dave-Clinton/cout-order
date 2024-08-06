@@ -28,12 +28,12 @@ DEBUG = True
 
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,'*']
-#if DEBUG:
-   # ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,'*']
-#else:
-   # ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*', 'fidel005.pythonanywhere.com').split(',')
+if DEBUG:
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,'*']
+else:
+    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*', 'fidel005.pythonanywhere.com').split(',')
 
-#SITE_URL = 'http://127.0.0.1:8000' if DEBUG else os.getenv('SITE_URL', 'https://fidel005.pythonanywhere.com/')
+SITE_URL = 'http://127.0.0.1:8000' if DEBUG else os.getenv('SITE_URL', 'https://fidel005.pythonanywhere.com/')
 
 # Application definition
 
@@ -47,9 +47,21 @@ INSTALLED_APPS = [
     'myapp',
     'rest_framework',
     'rest_framework.authtoken',
-
+    'ckeditor',
+    'ckeditor_uploader',
 
 ]
+
+
+
+
+
+
+
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -86,13 +98,22 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+#DATABASES = {
+   # 'default': {
+     #   'ENGINE': 'django.db.backends.sqlite3',
+       # 'NAME': BASE_DIR / 'db.sqlite3',
+    #}
+#}
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dante',
+        'USER': 'postgres',
+        'PASSWORD': 'masizacreatives!3',
+        'HOST': 'localhost',  # or the address of your database server
+        'PORT': '5432',  # default port for PostgreSQL
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -164,10 +185,20 @@ CENTRAL_NOTIFICATION_EMAIL = 'betsuccor@gmail.com'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory to collect static files
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dante',
+        'USER': 'postgres',
+        'PASSWORD': 'masizacreatives!3',
+        'HOST': 'localhost',  # or the address of your database server
+        'PORT': '5432',  # default port for PostgreSQL
+    }
+}
 
 
-LOGIN_URL = 'register'
-LOGIN_REDIRECT_URL = 'home'
 
 
 
@@ -178,3 +209,9 @@ ADMIN_EMAILS = [
     'admin4@example.com',
     'admin5@example.com',
 ]
+
+
+PAYPAL_CLIENT_ID = 'AbtkUk0TVy-hfNj1EZG9mkwh5K4nHC_QeifnvJQp2v7EYe0fLq_sn2vy3bHbeGtzAvjVCG0TByt-zChw'
+PAYPAL_CLIENT_SECRET ='EMVx7n8euV3m9Hpe0uyga0dQy_VevaUuDff8wQt0zUCQIDO4rGwDEVU4sVlJQGxffCKaF5WZdBhaerKL'
+PAYPAL_MODE = 'live'  # or 'live' for production what is this paypal_mode? if i only have these  App name
+

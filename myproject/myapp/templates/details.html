@@ -6,42 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Details</title>
     <style>
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-            padding-top: 60px;
-        }
-
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    
 
 .comp-container {
     display: flex;
@@ -127,8 +91,10 @@
 </head>
 <body style="overflow-x: hidden;">
     {% include 'navbar.html' %}
+    <li><a href="{% url 'case_parties' %}"> Back </a> </li>
 
     <div class="comp-container">
+
         <h1>Details</h1>
         <form method="post" action="{% url 'details' %}">
             {% csrf_token %}
@@ -193,31 +159,8 @@
         </form>
     </div>
     
-     <!-- The Modal onclick="openModal()" -->
-     <div id="mpesaModal" class="modal">
-        <div class="modal-content">
-          <span class="close" onclick="closeModal()">&times;</span>
-          <form id="mpesaForm">
-               <label for="phoneNumber">Phone Number:</label>
-             <input type="text" id="phoneNumber" name="phoneNumber" required><br><br>
-             <label for="amount">Amount:</label>
-              <input type="number" id="amount" name="amount" required><br><br>
-              <button type="button" class="btn" onclick="sendStkPush()">Send </button>
-           </form>
-       </div>
-    </div>
 
-    <script>
-        function openModal() {
-            document.getElementById('mpesaModal').style.display = 'block';
-        }
     
-        function closeModal() {
-            document.getElementById('mpesaModal').style.display = 'none';
-        }
-    
-    </script>
-
 
 
 </body>

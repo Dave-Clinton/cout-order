@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
 import uuid
+from ckeditor.fields import RichTextField
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -31,9 +33,9 @@ class Profile(models.Model):
     caretaker = models.CharField(max_length=100, blank=True, null=True)
     auctioneer = models.CharField(max_length=100, blank=True, null=True)
     duration_of_stay = models.CharField(max_length=50, blank=True, null=True)
-    monthly_rent = models.CharField(max_length=20, blank=True, null=True)
-    year_of_entry = models.CharField(max_length=20, blank=True, null=True)
-    deposit_paid = models.CharField(max_length=20, blank=True, null=True)
+    monthly_rent = models.CharField(max_length=40, blank=True, null=True)
+    year_of_entry = models.CharField(max_length=40, blank=True, null=True)
+    deposit_paid = models.CharField(max_length=40, blank=True, null=True)
     cause_of_action = models.CharField(max_length=255, blank=True, null=True)
     problem = models.TextField(blank=True, null=True)
     ocs_police_station = models.CharField(max_length=100, blank=True, null=True)
@@ -42,7 +44,8 @@ class Profile(models.Model):
 
 class Affidavit(models.Model):
     profile = models.OneToOneField(Profile, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = RichTextField()
+    #content = models.TextField()
     STATUS_CHOICES = [
         ('active', 'Active'),
         ('in_review', 'In Review'),

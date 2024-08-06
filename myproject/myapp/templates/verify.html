@@ -13,9 +13,13 @@
     </style>
 </head>
 <body>
-    <h2>Verify Email</h2>
-    <h3>Confirm you are you</h3>
-    <p>Making sure you are secure -- it's what we do.    </p>
+    {% include 'navbar.html' %}
+    <div style="align-content: center; margin-left: 20px;">
+        <h2>Check your email</h2>
+    <p>Making sure you are secure -- it's what we do.   </p>
+    </div>
+    
+    
     {% if messages %}
     <ul id="message-list">
         {% for message in messages %}
@@ -24,7 +28,7 @@
     </ul>
    {% endif %}
     
-    
+
 </body>
 </html>
 <script>

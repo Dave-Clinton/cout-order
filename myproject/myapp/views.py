@@ -27,7 +27,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Profile, Affidavit
 from django.contrib.auth.decorators import user_passes_test
-
+from django.http import HttpResponseForbidden
 
 
 
@@ -61,14 +61,6 @@ def register(request):
             messages.error(request, 'Passwords do not match')
 
     return render(request, 'register.html')
-
-
-
-
-
-
-
-
 
 
 
@@ -144,39 +136,6 @@ def login_view(request):
             messages.error(request, 'Invalid credentials')
 
     return render(request, 'login.html')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -261,20 +220,6 @@ def logout_view(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 @login_required
 def file_new_case(request):
     if request.method == 'POST':
@@ -345,10 +290,11 @@ def details(request):
             [settings.CENTRAL_NOTIFICATION_EMAIL],  # To admin email
             fail_silently=False,
         )
-        
-        return redirect('home')
 
+        return redirect('home')
+        
     return render(request, 'details.html')
+
 
 
 
@@ -545,88 +491,171 @@ def delete_affidavit(request, affidavit_id):
     return render(request, 'confirm_delete.html', {'affidavit': affidavit})
 
 
-#csv
-import csv
+
+
+
+
+
+#word
 from django.http import HttpResponse
+from docx import Document
 from .models import Profile
 
 def download_profiles_csv(request):
-    # Create the HTTP response with CSV content
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="profiles.csv"'
+    # Create a new Document
+    document = Document()
 
-    # Create a CSV writer object
-    writer = csv.writer(response)
-    
-    # Write the header row
-    writer.writerow([
-        'First Name', 'Last Name', 'Court Selection', 'Court Station', 'Court Division',
-        'Case Category', 'Case Type', 'Party Type', 'Party Level', 'Case Party Type',
-        'Organization Name', 'KRA Pin', 'Postal Address', 'Physical Location',
-        'Mobile Number', 'Organization Email', 'Tenant', 'Telephone Number',
-        'Landlord Name', 'Agent', 'Caretaker', 'Auctioneer', 'Duration of Stay',
-        'Monthly Rent', 'Year of Entry', 'Deposit Paid', 'Cause of Action', 'Problem',
-        'OCS Police Station'
-    ])
-    
-    # Write the data rows
+    # Add a title to the document
+    document.add_heading('Profile List', level=1)
+
+    # Add a table to the document
+    table = document.add_table(rows=1, cols=28)
+    hdr_cells = table.rows[0].cells
+    hdr_cells[0].text = 'First Name'
+    hdr_cells[1].text = 'Last Name'
+    hdr_cells[2].text = 'Court Selection'
+    hdr_cells[3].text = 'Court Station'
+    hdr_cells[4].text = 'Court Division'
+    hdr_cells[5].text = 'Case Category'
+    hdr_cells[6].text = 'Case Type'
+    hdr_cells[7].text = 'Party Type'
+    hdr_cells[8].text = 'Party Level'
+    hdr_cells[9].text = 'Case Party Type'
+    hdr_cells[10].text = 'Organization Name'
+    hdr_cells[11].text = 'KRA Pin'
+    hdr_cells[12].text = 'Postal Address'
+    hdr_cells[13].text = 'Physical Location'
+    hdr_cells[14].text = 'Mobile Number'
+    hdr_cells[15].text = 'Organization Email'
+    hdr_cells[16].text = 'Tenant'
+    hdr_cells[17].text = 'Telephone Number'
+    hdr_cells[18].text = 'Landlord Name'
+    hdr_cells[19].text = 'Agent'
+    hdr_cells[20].text = 'Caretaker'
+    hdr_cells[21].text = 'Auctioneer'
+    hdr_cells[22].text = 'Duration of Stay'
+    hdr_cells[23].text = 'Monthly Rent'
+    hdr_cells[24].text = 'Year of Entry'
+    hdr_cells[25].text = 'Deposit Paid'
+    hdr_cells[26].text = 'Cause of Action'
+    hdr_cells[27].text = 'Problem'
+    hdr_cells[28].text = 'OCS Police Station'
+
+    # Add data rows to the table
     for profile in Profile.objects.all():
-        writer.writerow([
-            profile.first_name, profile.last_name, profile.court_selection,
-            profile.court_station, profile.court_division, profile.case_category,
-            profile.case_type, profile.party_type, profile.party_level,
-            profile.case_party_type, profile.organization_name, profile.kra_pin,
-            profile.postal_address, profile.physical_location, profile.mobile_number,
-            profile.organization_email, profile.tenant, profile.telephone_number,
-            profile.landlord_name, profile.agent, profile.caretaker, profile.auctioneer,
-            profile.duration_of_stay, profile.monthly_rent, profile.year_of_entry,
-            profile.deposit_paid, profile.cause_of_action, profile.problem,
-            profile.ocs_police_station
-        ])
+        row_cells = table.add_row().cells
+        row_cells[0].text = profile.first_name
+        row_cells[1].text = profile.last_name
+        row_cells[2].text = profile.court_selection
+        row_cells[3].text = profile.court_station
+        row_cells[4].text = profile.court_division
+        row_cells[5].text = profile.case_category
+        row_cells[6].text = profile.case_type
+        row_cells[7].text = profile.party_type
+        row_cells[8].text = profile.party_level
+        row_cells[9].text = profile.case_party_type
+        row_cells[10].text = profile.organization_name
+        row_cells[11].text = profile.kra_pin
+        row_cells[12].text = profile.postal_address
+        row_cells[13].text = profile.physical_location
+        row_cells[14].text = profile.mobile_number
+        row_cells[15].text = profile.organization_email
+        row_cells[16].text = profile.tenant
+        row_cells[17].text = profile.telephone_number
+        row_cells[18].text = profile.landlord_name
+        row_cells[19].text = profile.agent
+        row_cells[20].text = profile.caretaker
+        row_cells[21].text = profile.auctioneer
+        row_cells[22].text = profile.duration_of_stay
+        row_cells[23].text = profile.monthly_rent
+        row_cells[24].text = profile.year_of_entry
+        row_cells[25].text = profile.deposit_paid
+        row_cells[26].text = profile.cause_of_action
+        row_cells[27].text = profile.problem
+        row_cells[28].text = profile.ocs_police_station
+
+    # Create the HTTP response with Word content
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = 'attachment; filename="profiles.docx"'
+
+    # Save the document to the response
+    document.save(response)
 
     return response
 
 
+
+from django.http import HttpResponse
+from docx import Document
+from django.shortcuts import get_object_or_404
+from .models import Profile
 
 def download_profile_csv(request, profile_id):
     # Get the specific profile
-    profile = Profile.objects.get(id=profile_id)
+    profile = get_object_or_404(Profile, id=profile_id)
     
-    # Create the HTTP response with CSV content
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = f'attachment; filename="profile_{profile.id}.csv"'
-
-    # Create a CSV writer object
-    writer = csv.writer(response)
+    # Create a new Document
+    document = Document()
     
-    # Write the header row
-    writer.writerow([
-        'Username', 'First Name', 'Last Name', 'Court Selection', 'Court Station',
-        'Court Division', 'Case Category', 'Case Type', 'Party Type', 'Party Level',
-        'Case Party Type', 'Organization Name', 'KRA Pin', 'Postal Address', 
-        'Physical Location', 'Mobile Number', 'Organization Email', 'Tenant', 
-        'Telephone Number', 'Landlord Name', 'Agent', 'Caretaker', 'Auctioneer',
-        'Duration of Stay', 'Monthly Rent', 'Year of Entry', 'Deposit Paid',
-        'Cause of Action', 'Problem', 'OCS Police Station'
-    ])
+    # Add a title to the document
+    document.add_heading(f'Profile {profile_id}', level=1)
     
-    # Write the data row
-    writer.writerow([
-        profile.user.username, profile.first_name, profile.last_name,
-        profile.court_selection, profile.court_station, profile.court_division,
-        profile.case_category, profile.case_type, profile.party_type,
-        profile.party_level, profile.case_party_type, profile.organization_name,
-        profile.kra_pin, profile.postal_address, profile.physical_location,
-        profile.mobile_number, profile.organization_email, profile.tenant,
-        profile.telephone_number, profile.landlord_name, profile.agent,
-        profile.caretaker, profile.auctioneer, profile.duration_of_stay,
-        profile.monthly_rent, profile.year_of_entry, profile.deposit_paid,
-        profile.cause_of_action, profile.problem, profile.ocs_police_station
-    ])
-
+    # Add a table to the document
+    table = document.add_table(rows=1, cols=3)
+    hdr_cells = table.rows[0].cells
+    hdr_cells[0].text = 'Field'
+    hdr_cells[1].text = 'Value'
+    
+    # Define fields and values
+    fields = [
+        ('Username', profile.user.username if profile.user else 'N/A'),
+        ('First Name', profile.first_name or 'N/A'),
+        ('Last Name', profile.last_name or 'N/A'),
+        ('Court Selection', profile.court_selection or 'N/A'),
+        ('Court Station', profile.court_station or 'N/A'),
+        ('Court Division', profile.court_division or 'N/A'),
+        ('Case Category', profile.case_category or 'N/A'),
+        ('Case Type', profile.case_type or 'N/A'),
+        ('Party Type', profile.party_type or 'N/A'),
+        ('Party Level', profile.party_level or 'N/A'),
+        ('Case Party Type', profile.case_party_type or 'N/A'),
+        ('Organization Name', profile.organization_name or 'N/A'),
+        ('KRA Pin', profile.kra_pin or 'N/A'),
+        ('Postal Address', profile.postal_address or 'N/A'),
+        ('Physical Location', profile.physical_location or 'N/A'),
+        ('Mobile Number', profile.mobile_number or 'N/A'),
+        ('Organization Email', profile.organization_email or 'N/A'),
+        ('Tenant', profile.tenant or 'N/A'),
+        ('Telephone Number', profile.telephone_number or 'N/A'),
+        ('Landlord Name', profile.landlord_name or 'N/A'),
+        ('Agent', profile.agent or 'N/A'),
+        ('Caretaker', profile.caretaker or 'N/A'),
+        ('Auctioneer', profile.auctioneer or 'N/A'),
+        ('Duration of Stay', profile.duration_of_stay or 'N/A'),
+        ('Monthly Rent', profile.monthly_rent or 'N/A'),
+        ('Year of Entry', profile.year_of_entry or 'N/A'),
+        ('Deposit Paid', profile.deposit_paid or 'N/A'),
+        ('Cause of Action', profile.cause_of_action or 'N/A'),
+        ('Problem', profile.problem or 'N/A'),
+        ('OCS Police Station', profile.ocs_police_station or 'N/A')
+    ]
+    
+    # Add data rows to the table
+    for field, value in fields:
+        row_cells = table.add_row().cells
+        row_cells[0].text = field
+        row_cells[1].text = value
+    
+    # Create the HTTP response with Word content
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename="profile_{profile_id}.docx"'
+    
+    # Save the document to the response
+    document.save(response)
+    
     return response
 
-from .models import Affidavit
+import csv
 
 def download_completed_affidavits_csv(request):
     # Get the completed affidavits
@@ -648,25 +677,52 @@ def download_completed_affidavits_csv(request):
 
     return response
 
+
+
+
+import csv
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from docx import Document
+
 def download_affidavits_csv(request, profile_id):
     # Get the affidavits for the specified profile
     affidavits = Affidavit.objects.filter(profile_id=profile_id)
-    
-    # Create the HTTP response with CSV content
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = f'attachment; filename="affidavits_profile_{profile_id}.csv"'
 
-    # Create a CSV writer object
-    writer = csv.writer(response)
-    
-    # Write the header row
-    writer.writerow(['Content', 'Status', 'Edited'])
-    
-    # Write the data rows
-    for affidavit in affidavits:
-        writer.writerow([affidavit.content, affidavit.get_status_display(), affidavit.edited])
+    # Create a list of dictionaries for template rendering
+    affidavit_data = [{
+        'content': affidavit.content,
+        'status': affidavit.get_status_display(),
+        'edited': affidavit.edited
+    } for affidavit in affidavits]
+
+    # Render HTML table from template
+    html_content = render_to_string('affidavit_table.html', {'affidavits': affidavit_data})
+
+    # Create a Word document
+    doc = Document()
+    doc.add_paragraph()  # Add a blank paragraph for spacing
+    doc.add_paragraph(html_content, style='Normal')
+
+    # Save the document to a file-like object
+    from io import BytesIO
+    buffer = BytesIO()
+    doc.save(buffer)
+    buffer.seek(0)
+
+    # Create the HTTP response
+    response = HttpResponse(buffer.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    response['Content-Disposition'] = f'attachment; filename="affidavits_profile_{profile_id}.docx"'
 
     return response
+
+
+
+
+
+
+
+
 
 
 
@@ -681,3 +737,51 @@ def download_affidavit_csv(request, affidavit_id):
     writer.writerow([affidavit.content, affidavit.get_status_display(), affidavit.edited])
 
     return response
+
+
+
+
+
+
+
+
+
+
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+import paypalrestsdk
+import json
+
+# Configure PayPal SDK
+paypalrestsdk.configure({
+    "mode": settings.PAYPAL_MODE,
+    "client_id": settings.PAYPAL_CLIENT_ID,
+    "client_secret": settings.PAYPAL_CLIENT_SECRET
+})
+
+def make_payment(request):
+    # Render the template with the PayPal button
+    return render(request, 'make_payment.html')
+
+@csrf_exempt
+def capture_payment(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        order_id = data.get('orderID')
+
+        # Capture the payment
+        payment = paypalrestsdk.Payment.find(order_id)
+        if payment.execute({"payer_id": data.get('payerID')}):
+            return JsonResponse({'status': 'success', 'message': 'Payment successfully captured'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Payment capture failed'}, status=400)
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+
+
+
+
+def index (request):
+
+    return render (request, 'index.html')

@@ -8,242 +8,144 @@
     <title>Case Parties</title>
     <style>
         /* Navbar styles */
-.navbar {
-    margin-bottom: 20px; /* Adds space below the navbar */
-}
+        .navbar {
+            margin-bottom: 20px; /* Adds space below the navbar */
+        }
 
-/* Container styles */
-.container101 {
-    padding: 20px;
-    text-align: center;
-}
+        /* Container styles */
+        .container101 {
+            padding: 20px;
+            text-align: center;
+        }
 
-.container101 h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
+        .container101 h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
 
-.btn {
-    background-color: #007bff;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        /* Form styles */
+        .modal-body {
+            padding: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow-y: auto;
+            max-height: 80vh; /* Limits height to 80% of the viewport height */
+        }
 
-.btn:hover {
-    background-color: #0056b3;
-}
+        .modal-body form {
+            display: flex;
+            flex-direction: column;
+        }
 
-/* Modal styles */
-.modal {
-    display: none; 
-    position: fixed; 
-    z-index: 1000; 
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; 
-    background-color: rgba(0, 0, 0, 0.5); 
-    justify-content: center; 
-    align-items: center; 
-    padding-top: 60px; /* Space for navbar */
-}
+        .modal-body label {
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; 
-    max-height: 80%; 
-    overflow-y: auto; /* Enables vertical scroll */
-    border-radius: 10px;
-}
+        .modal-body input,
+        .modal-body select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #e5e5e5;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
+        .modal-body button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            align-self: flex-start;
+        }
 
-.modal-header h2 {
-    margin: 0;
-}
+        .modal-body button:hover {
+            background-color: #218838;
+        }
 
-.close {
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .modal-body {
+                padding: 10px;
+            }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
+            .container101 h1 {
+                font-size: 20px;
+            }
 
-/* Form styles */
-.modal-body {
-    padding: 10px;
-}
+            .modal-body input,
+            .modal-body select {
+                font-size: 14px;
+            }
+        }
 
-.modal-body form {
-    display: flex;
-    flex-direction: column;
-}
+        @media (max-width: 480px) {
+            .container101 h1 {
+                font-size: 18px;
+            }
 
-.modal-body label {
-    margin-top: 10px;
-    margin-bottom: 5px;
-}
-
-.modal-body input,
-.modal-body select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 15px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.modal-body button {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    align-self: flex-start;
-}
-
-.modal-body button:hover {
-    background-color: #218838;
-}
-
-/* Responsive styles */
-@media (max-width: 768px) {
-    .modal-content {
-        width: 95%;
-    }
-
-    .container101 h1 {
-        font-size: 20px;
-    }
-
-    .btn {
-        padding: 8px 16px;
-    }
-
-    .modal-body input,
-    .modal-body select {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    .container101 h1 {
-        font-size: 18px;
-    }
-
-    .btn {
-        padding: 6px 12px;
-        font-size: 14px;
-    }
-}
-
-       
+            .modal-body input,
+            .modal-body select {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body style="overflow: hidden;">
     {% include 'navbar.html' %}   
+    <li><a href="{% url 'file_new_case' %}"> Back </a> </li>
 
     <div class="container101">
         <h1>Case Parties, Litigants, and Interested Parties</h1>
-        <button class="btn" id="add-party-btn">Add Party</button>
+
     </div>
 
-    <!-- The Modal -->
-    <div id="party-modal" class="modal">
-        <div class="modal-content"  >
-            <div class="modal-header">
-                <h2>Add Party</h2>
-                <span class="close">&times;</span>
-            </div>
-            <div class="modal-body">
-             <form method="post" action="{% url 'case_parties' %}">
-                    {% csrf_token %}
-                 <label for="party-type">Party Type</label>
-                 <select id="party-type" name="party-type">
-                     <option value="individual">LandLord</option>
-                     <option value="non_gok_organization">Tenant</option>
-                     <option value="state_organization">Urgent</option>
-                 </select>
+    <div class="modal-body">
+        <form method="post" action="{% url 'case_parties' %}">
+            {% csrf_token %}
+            <label for="party-type">Party Type</label>
+            <select id="party-type" name="party-type">
+                <option value="individual">LandLord</option>
+                <option value="non_gok_organization">Tenant</option>
+                <option value="state_organization">Urgent</option>
+            </select>
 
-                <label for="party-level">Party Level</label>
-                <select id="party-type" name="party-type">
-                    <option value="individual">First</option>
-                    <option value="non_gok_organization">Second</option>
-                    <option value="state_organization">Third</option>
-                </select>
-                <label for="case-party-type">Case Party Type</label>
-                <input type="text" id="case-party-type" name="case-party-type" placeholder="Case Party Type">
+            <label for="party-level">Party Level</label>
+            <select id="party-level" name="party-level">
+                <option value="individual">First</option>
+                <option value="non_gok_organization">Second</option>
+                <option value="state_organization">Third</option>
+            </select>
 
-                <label for="organization-name">Organization Name</label>
-                <input type="text" id="organization-name" name="organization-name" placeholder="Full Name of the Organization">
+            <label for="case-party-type">Case Party Type</label>
+            <input type="text" id="case-party-type" name="case-party-type" placeholder="Case Party Type">
 
-                <label for="kra-pin">KRA PIN/Business Reg. Number</label>
-                <input type="text" id="kra-pin" name="kra-pin" placeholder="Enter KRA PIN or Business Registration No.">
+            <label for="organization-name">Organization Name</label>
+            <input type="text" id="organization-name" name="organization-name" placeholder="Full Name of the Organization">
 
-                <label for="postal-address">Postal Address</label>
-                <input type="text" id="postal-address" name="postal-address" placeholder="Address of the Organization">
+            <label for="kra-pin">KRA PIN/Business Reg. Number</label>
+            <input type="text" id="kra-pin" name="kra-pin" placeholder="Enter KRA PIN or Business Registration No.">
 
-                <label for="physical-location">Physical Location</label>
-                <input type="text" id="physical-location" name="physical-location" placeholder="Physical Location">
+            <label for="postal-address">Postal Address</label>
+            <input type="text" id="postal-address" name="postal-address" placeholder="Address of the Organization">
 
-                <label for="mobile-number">Mobile Number</label>
-                <input type="text" id="mobile-number" name="mobile-number" placeholder="Mobile Number of the Party">
+            <label for="physical-location">Physical Location</label>
+            <input type="text" id="physical-location" name="physical-location" placeholder="Physical Location">
 
-                <label for="organization-email">Organization Email</label>
-              
-              
-               <input type="email" id="organization-email" name="organization-email" placeholder="Email address of the Party">
-          
-              <button type="submit"> Save</button>
-            </form>
-          
-            </div>
-        </div>
+            <label for="mobile-number">Mobile Number</label>
+            <input type="text" id="mobile-number" name="mobile-number" placeholder="Mobile Number of the Party">
+
+            <label for="organization-email">Organization Email</label>
+            <input type="email" id="organization-email" name="organization-email" placeholder="Email address of the Party">
+            <button type="submit">Save</button>
+            <label for="organization-email">save</label>
+        </form>
     </div>
-
-    <script>
-        var modal = document.getElementById("party-modal");
-        var btn = document.getElementById("add-party-btn");
-        var span = document.getElementsByClassName("close")[0];
-
-        btn.onclick = function() {
-            modal.style.display = "flex";
-        }
-
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
 </body>
 </html>
 {% endblock %}
-
