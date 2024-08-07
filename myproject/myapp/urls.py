@@ -30,7 +30,7 @@ urlpatterns = [
         path('verify_email/<uidb64>/<token>/', views.verify_email, name='verify_email'),
         path('password_reset/', views.password_reset_request, name='password_reset'),
         path('reset/<uidb64>/<token>/', views.password_reset_confirm, name='password_reset_confirm'),
-        path('make-payment/', views.make_payment, name='make_payment'),
+        path('make_payment/', views.make_payment, name='make_payment'),
         path('capture-payment/', views.capture_payment, name='capture_payment'),
 
 

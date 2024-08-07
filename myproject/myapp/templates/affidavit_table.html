@@ -1,17 +1,11 @@
 <table>
-    <thead>
-        <tr>
-            <th>Content</th>
-            <th>Status</th>
-            <th>Edited</th>
-        </tr>
-    </thead>
+    
     <tbody>
         {% for affidavit in affidavits %}
         <tr>
-            <td>{{ affidavit.content }}</td>
-            <td>{{ affidavit.status }}</td>
-            <td>{{ affidavit.edited }}</td>
+            {{ affidavit.content }}
+            {{ affidavit.status }}
+            {{ affidavit.edited }}
         </tr>
         {% endfor %}
     </tbody>

@@ -25,24 +25,15 @@ SECRET_KEY = 'django-insecure-x*%o4w2js7&rm_2u!__r$hbpbel9jm(1%*ww-+lyjw%dk3snu6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# Set allowed hosts for development
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,'*']
-if DEBUG:
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost' ,'*']
-else:
-    ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
-
-SITE_URL = 'http://127.0.0.1:8000' if DEBUG else os.getenv('SITE_URL')
-
-# Application definition
-
+SITE_URL = ['http://127.0.0.1:8000',' https://cout-order.onrender.com']
 
 
 import os
 import dj_database_url
 
-DEBUG = os.environ.get('DEBUG', False)  # Default to False for production
 
 
 

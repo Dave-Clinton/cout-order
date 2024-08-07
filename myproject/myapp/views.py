@@ -65,6 +65,7 @@ def register(request):
 
 
 
+
 def send_verification_email(user, verification_code):
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     token = str(verification_code)
