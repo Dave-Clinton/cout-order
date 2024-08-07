@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Solution</title>
+    <link rel="icon" type="image/png" href="{% static 'images/business.png' %}"/>
+
+
+    <!-- ===============--- tailwind and daisy ui link ---=============== -->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@3.4.0/dist/full.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- ===============--- font awesome link ---=============== -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+        
+    <!-- ===============--- contact-with-us-section ---=============== -->
+        <section id="contact-with-us-section" class=" my-20 w-[80%] lg:w-[60%] mx-auto ">
+            <h1 class="text-3xl font-bold text-center">Contact With Us</h1>
+            <p class="text-xs text-center pt-2 pb-4 w-[90%] lg:w-[70%] mx-auto">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>
+            <div class="all-content flex flex-col items-center md:items-start justify-center gap-8 md:flex-row">
+                <div class="contact-left flex-1 flex flex-col items-center justify-center gap-y-2 md:gap-y-0 md:grid md:grid-cols-2">
+                    <div class="address text-center flex items-center justify-center bg-[#F3F3F3] p-4 md:border-r md:border-b">
+                        <div class="info w-[10rem]">
+                            <img class="block mx-auto" src="{%static 'images/location.png' %}" alt="" />
+                            <strong>Address</strong>
+                            <p class="text-xs py-2">
+                                Nairobi <br />
+                                Ministry of Lands, NR 535022
+                            </p>
+                        </div>
+                    </div>
+                    <div class="call text-center flex items-center justify-center bg-[#F3F3F3] md:border-b p-4">
+                        <div class="info w-[10rem]">
+                            <img class="block mx-auto"  src="{%static 'images/call.png' %}" alt="" />
+                            <strong>Call Us</strong>
+                            <p class="text-xs py-2">+254705824478<br>+254723055401</p>
+                        </div>
+                    </div>
+                    <div class="email text-center flex items-center justify-center bg-[#F3F3F3] p-4 md:border-r">
+                        <div class="info w-[10rem]">
+                            <img class="block mx-auto" src="{%static 'images/email.png' %}" alt="" />
+                            <strong>Email Us</strong>
+                            <p class="text-xs py-2">fidelmasitsa03@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="working-hours text-center flex items-center justify-center bg-[#F3F3F3] p-4">
+                        <div class="info w-[10rem]">
+                            <img class="block mx-auto" src="{%static 'images/time.png' %}" alt="" />
+                            <strong>Availability</strong>
+                            <p class="text-xs py-2">Mon-Fri: 9AM to 5PM<br>Sunday: 9AM to 1 PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-right flex-1">
+                    <form action="#" class="flex flex-col gap-y-4">
+                        <label for="name">
+                            <input type="text" id="name" name="name" placeholder="Your Name" class="bg-[#F3F3F3] w-full p-2 rounded-md focus:outline-gray-300" >
+                        </label>
+                        <label for="email">
+                            <input type="email" name="email" id="email" placeholder="Your E-mail" class="bg-[#F3F3F3] w-full p-2 rounded-md focus:outline-gray-300" >
+                        </label>
+                        <label for="subject">
+                            <input type="text" name="subject" id="subject" placeholder="Your Subject" class="bg-[#F3F3F3] w-full p-2 rounded-md focus:outline-gray-300" >
+                        </label>
+                        <textarea name="textarea" id="textarea" cols="30" rows="" placeholder="Your Message" class="bg-[#F3F3F3] w-full p-2 rounded-md focus:outline-gray-300" ></textarea>
+                        <input type="submit" value="Send Message" class="text-white bg-[#B68C5A] py-2 rounded-md">
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===============--- footer section ---=============== -->
+    <section class="bg-black text-white pt-12">
+        <footer style="background-color: black; color: aliceblue;" class="footer text-white bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:place-items-center p-10 bg-base-200 text-base-content ">
+           
+            <div>
+            <span class="footer-title">Company</span> 
+            <a class="link link-hover">About us</a> 
+            <a class="link link-hover">Contact</a> 
+            </div> 
+            <div>
+            <span class="footer-title">Legal</span> 
+            <a class="link link-hover">Terms of use</a> 
+            <a class="link link-hover">Privacy policy</a> 
+            <a class="link link-hover">Cookie policy</a>
+            </div> 
+           
+        </footer>
+        <p class="text-center px-4 pb-1 text-sm">&copy;CopyRight-2024 | All rights reserved by <a href="#https://masiza.netlify.app/" target="_blank" class="font-semibold">Fidel Masitsa</a></p>
+    </section>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+</body>
+</html>
