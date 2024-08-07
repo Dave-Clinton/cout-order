@@ -28,11 +28,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Profile, Affidavit
 from django.contrib.auth.decorators import user_passes_test
 from django.http import HttpResponseForbidden
+from django.views.decorators.csrf import csrf_protect
 
 
 
 
-
+@csrf_protect
 def register(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
@@ -110,7 +111,7 @@ def verify (request):
 
 
 
-
+@csrf_protect
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email', '').strip()
@@ -141,7 +142,7 @@ def login_view(request):
 
 
 
-
+@csrf_protect
 def password_reset_request(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -165,7 +166,7 @@ def password_reset_request(request):
     return render(request, 'password_reset_form.html')
 
 
-
+@csrf_protect
 def password_reset_confirm(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
@@ -197,7 +198,6 @@ from django.contrib.auth.models import User
 
 
 
-
 @login_required
 def home(request):
     user_profile = Profile.objects.get(user=request.user)
@@ -220,8 +220,8 @@ def logout_view(request):
 
 
 
-
 @login_required
+@csrf_protect
 def file_new_case(request):
     if request.method == 'POST':
         user_profile = Profile.objects.get(user=request.user)
@@ -235,8 +235,8 @@ def file_new_case(request):
         return redirect('case_parties')
     return render(request, 'file_new_case.html')
 
-
 @login_required
+@csrf_protect
 def case_parties(request):
     if request.method == 'POST':
         user_profile = Profile.objects.get(user=request.user)
@@ -255,6 +255,7 @@ def case_parties(request):
     return render(request, 'case_parties.html')
 
 @login_required
+@csrf_protect
 def details(request):
     if request.method == 'POST':
         user_profile = Profile.objects.get(user=request.user)
@@ -424,7 +425,9 @@ def dashboard(request):
     
     return render(request, 'dashboard.html', context)
 
+
 @login_required
+@csrf_protect
 def add_affidavit(request, profile_id):
     profile = get_object_or_404(Profile, id=profile_id)
     
@@ -445,6 +448,7 @@ def add_affidavit(request, profile_id):
     return render(request, 'affidavit.html', {'profile': profile})
 
 @login_required
+@csrf_protect
 def review_dashboard(request):
     profiles = Profile.objects.all()
     affidavits = Affidavit.objects.select_related('profile').all()
@@ -471,6 +475,7 @@ def review_dashboard(request):
     return render(request, 'review_dashboard.html', context)
 
 @login_required
+@csrf_protect
 def edit_affidavit(request, affidavit_id):
     affidavit = get_object_or_404(Affidavit, id=affidavit_id)
     
@@ -484,6 +489,7 @@ def edit_affidavit(request, affidavit_id):
     return render(request, 'edit_affidavit.html', {'affidavit': affidavit})
 
 @login_required
+@csrf_protect
 def delete_affidavit(request, affidavit_id):
     affidavit = get_object_or_404(Affidavit, id=affidavit_id)
     if request.method == 'POST':
