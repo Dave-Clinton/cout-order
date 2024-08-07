@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Details</title>
     <style>
+.back-button a {
+    text-decoration: none; 
+    padding: 10px 20px; 
+    background-color:  #aa9166;; 
+    color: white; 
+    border-radius: 5px; 
+    margin-left: 20px; 
+}
+
 
 .comp-container {
     display: flex;
@@ -66,7 +75,7 @@
 .comp-container button {
     width: 100%;
     padding: 10px;
-    background-color: #4CAF50;
+    background-color:  #aa9166;;
     color: white;
     border: none;
     border-radius: 5px;
@@ -75,9 +84,6 @@
     margin-top: 10px;
 }
 
-.comp-container button:hover {
-    background-color: #45a049;
-}
 
 /* Responsive styles */
 @media (max-width: 600px) {
@@ -91,6 +97,15 @@
 </head>
 <body style="overflow-x: hidden;">
     {% include 'navbar.html' %}
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div  style="color:red;" class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     <li><a href="{% url 'case_parties' %}"> Back </a> </li>
 
     <div class="comp-container">
