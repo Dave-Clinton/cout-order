@@ -40,6 +40,7 @@ SITE_URL = 'http://127.0.0.1:8000' if DEBUG else os.getenv('SITE_URL')
 
 
 import os
+import dj_database_url
 
 DEBUG = os.environ.get('DEBUG', False)  # Default to False for production
 
@@ -114,16 +115,21 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
        # 'NAME': BASE_DIR / 'db.sqlite3',
     #}
 #}
+#DATABASES = {
+   # 'default': {
+      #  'ENGINE': 'django.db.backends.postgresql',
+      #  'NAME': 'dante',
+      #  'USER': 'postgres',
+       # 'PASSWORD': 'masizacreatives!3',
+       # 'HOST': 'localhost',  # or the address of your database server
+      #  'PORT': '5432',  # default port for PostgreSQL
+   # }
+#}
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dante',
-        'USER': 'postgres',
-        'PASSWORD': 'masizacreatives!3',
-        'HOST': 'localhost',  # or the address of your database server
-        'PORT': '5432',  # default port for PostgreSQL
-    }
-}
+        'default' : dj_database_url.parse (' postgresql://my_db101_user:Ik76fwkHPuuTSLFwj5axbKUmCoIg4HIm@dpg-cqpeph3v2p9s73caurt0-a.oregon-postgres.render.com/my_db101')
+        
+        }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
