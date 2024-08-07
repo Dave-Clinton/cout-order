@@ -22,19 +22,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-x*%o4w2js7&rm_2u!__r$hbpbel9jm(1%*ww-+lyjw%dk3snu6'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-# Set allowed hosts for development
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-
-SITE_URL = ['http://127.0.0.1:8000',' https://cout-order.onrender.com']
 
 
 import os
 import dj_database_url
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False  # Ensure this is set to False in production
 
+# Set allowed hosts for development
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost' '*']
+
+# Set the SITE_URL based on the DEBUG value
+if DEBUG:
+    SITE_URL = 'http://127.0.0.1:8000'
+else:
+    SITE_URL = 'https://cout-order.onrender.com'
+
+print(f'DEBUG is set to {DEBUG}. Site URL is set to {SITE_URL}')
 
 
 
