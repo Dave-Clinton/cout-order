@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Solution</title>
+    <link rel="icon" type="image/png" href="{% static 'images/business.png' %}"/>
+
+
+    <!-- ===============--- tailwind and daisy ui link ---=============== -->
+<link href="https://cdn.jsdelivr.net/npm/daisyui@3.4.0/dist/full.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- ===============--- font awesome link ---=============== -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <!-- ===============--- header section ---=============== -->
+    <header>
+        <nav>
+            <div class="navbar bg-base-100">
+                <div class="navbar-start">
+                  <div class="dropdown">
+                    <label tabindex="0" class="btn btn-ghost lg:hidden" style="display: none;" id="responsiveLabel" >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                      </label>
+                    <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                        {% if user.is_authenticated %}
+                     <li><a href="{% url 'logout' %}"> <i class="fas fa-sign-out-alt"></i> Sign Out</a></li>
+                      <li> <a href="#"> <i class="fas fa-user"></i> Welcome, {{ user.profile.first_name }} </a></li>
+                     <li><a href="{% url 'file_new_case' %}">  <i class="fas fa-file-upload"></i> File New case </a> </li>
+
+                     
+                            {% else %}
+
+                      <li><a href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Register</a></li>
+                      <li><a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login </a></li>
+                        {% endif %}
+                    </ul>
+                  </div>
+                  <img class="hidden md:flex" src="{% static 'images/logo2.png' %}" alt="Logo">
+
+                </div>
+                <div class="navbar-center hidden lg:flex">
+                  <ul class="menu menu-horizontal px-1">
+                    {% if user.is_authenticated %}
+
+                    <li>
+                        <a href="{% url 'logout' %}"> <i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fas fa-user"></i> Welcome, {{ user.profile.first_name }} </a>
+                    </li>
+                   
+                    <li>
+                        <a href="{% url 'file_new_case' %}">  <i class="fas fa-file-upload"></i> File New case </a>
+                    </li>
+                    {% else %}
+
+                    <li>
+                        <a href="{% url 'register' %}"><i class="fas fa-user-plus"></i> Register</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i> Login </a>
+                    </li>
+                    {% endif %}
+
+                  </ul>
+                </div>
+               
+              </div>
+        </nav>
+    </header>
+      
+        <script>
+            function updateLabelVisibility() {
+                const label = document.getElementById('responsiveLabel');
+                if (window.innerWidth >= 1000) {
+                    label.style.display = 'none';
+                } else {
+                    label.style.display = 'block';
+                }
+            }
+        
+            // Initial check
+            updateLabelVisibility();
+        
+            // Update on window resize
+            window.addEventListener('resize', updateLabelVisibility);
+        </script>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+</body>
+</html>

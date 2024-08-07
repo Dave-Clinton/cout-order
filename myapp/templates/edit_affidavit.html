@@ -1,0 +1,10 @@
+{% include 'navbar.html' %}
+
+{% block content %}
+<h2>Edit Affidavit</h2>
+<form method="post" action="{% url 'edit_affidavit' affidavit.id %}">
+    {% csrf_token %}
+    <textarea name="content" required>{{ affidavit.content }}</textarea><br>
+    <button type="submit">Save Changes</button>
+</form>
+{% endblock %}

@@ -28,7 +28,7 @@ import os
 import dj_database_url
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # Ensure this is set to False in production
+DEBUG = False # Ensure this is set to False in production
 
 # Set allowed hosts for development
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost' '*']
