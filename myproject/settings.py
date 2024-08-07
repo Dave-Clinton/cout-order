@@ -31,7 +31,8 @@ import dj_database_url
 DEBUG = True # Ensure this is set to False in production
 
 # Set allowed hosts for development
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost' '*']
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cout-order.onrender.com']
 
 # Set the SITE_URL based on the DEBUG value
 if DEBUG:
