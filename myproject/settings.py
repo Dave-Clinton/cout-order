@@ -116,18 +116,9 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
        # 'NAME': BASE_DIR / 'db.sqlite3',
     #}
 #}
-#DATABASES = {
-   # 'default': {
-      #  'ENGINE': 'django.db.backends.postgresql',
-      #  'NAME': 'dante',
-      #  'USER': 'postgres',
-       # 'PASSWORD': 'masizacreatives!3',
-       # 'HOST': 'localhost',  # or the address of your database server
-      #  'PORT': '5432',  # default port for PostgreSQL
-   # }
-#}
+
 DATABASES = {
-        'default' : dj_database_url.parse (' postgresql://my_db101_user:Ik76fwkHPuuTSLFwj5axbKUmCoIg4HIm@dpg-cqpeph3v2p9s73caurt0-a.oregon-postgres.render.com/my_db101')
+        'default' : dj_database_url.parse ('postgresql://mydatabase_ym2h_user:pJ57WokKS3ykEFy2Qa7Qlj93nS6PxPxJ@dpg-cqpmk5lsvqrc73fujrqg-a.oregon-postgres.render.com/mydatabase_ym2h')
         
         }
 
