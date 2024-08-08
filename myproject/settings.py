@@ -25,14 +25,13 @@ SECRET_KEY = 'django-insecure-x*%o4w2js7&rm_2u!__r$hbpbel9jm(1%*ww-+lyjw%dk3snu6
 
 
 import os
-import dj_database_url
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True # Ensure this is set to False in production
 
 # Set allowed hosts for development
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'cout-order.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','*' ,'cout-order.onrender.com']
 
 # Set the SITE_URL based on the DEBUG value
 if DEBUG:
@@ -118,9 +117,15 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 #}
 
 DATABASES = {
-        'default' : dj_database_url.parse ('postgresql://mydb_z28g_user:ofnVQnlqSafaI8ZXSZFGPeioHFdUqc4j@dpg-cqppqq2j1k6c73durfng-a.oregon-postgres.render.com/mydb_z28g')
-        
-        }
+   'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'backendlaw',
+        'USER': 'mysuperuser',
+         'PASSWORD': 'masizaCREATIVES!3',
+         'HOST': 'backendlaw.c9q80s0oet0v.eu-north-1.rds.amazonaws.com',  # or the address of your database server
+        'PORT': '5432',  # default port for PostgreSQL
+    }
+}
 
 
 # Password validation
