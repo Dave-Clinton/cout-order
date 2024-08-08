@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -116,16 +118,23 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
     #}
 #}
 
+# Database configuration
 DATABASES = {
-   'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'backendlaw',
-        'USER': 'mysuperuser',
-         'PASSWORD': 'masizaCREATIVES!3',
-         'HOST': 'backendlaw.c9q80s0oet0v.eu-north-1.rds.amazonaws.com',  # or the address of your database server
-        'PORT': '5432',  # default port for PostgreSQL
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('postgresql://mydb_z28g_user:ofnVQnlqSafaI8ZXSZFGPeioHFdUqc4j@dpg-cqppqq2j1k6c73durfng-a.oregon-postgres.render.com/mydb_z28g')
+    )
 }
+
+#DATABASES = {
+   #'default': {
+      #  'ENGINE': 'django.db.backends.postgresql',
+       # 'NAME': 'backendlaw',
+        #'USER': 'mysuperuser',
+        # 'PASSWORD': 'masizaCREATIVES!3',
+        # 'HOST': 'backendlaw.c9q80s0oet0v.eu-north-1.rds.amazonaws.com',  # or the address of your database server
+      #  'PORT': '5432',  # default port for PostgreSQL
+   # }
+#}
 
 
 # Password validation
