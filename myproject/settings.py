@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-x*%o4w2js7&rm_2u!__r$hbpbel9jm(1%*ww-+lyjw%dk3snu6
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # Ensure this is set to False in production
+DEBUG = False # Ensure this is set to False in production
 
 # Set allowed hosts for development
 
