@@ -199,20 +199,7 @@ CENTRAL_NOTIFICATION_EMAIL = 'betsuccor@gmail.com'
 
 
 
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory to collect static files
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dante',
-        'USER': 'postgres',
-        'PASSWORD': 'masizacreatives!3',
-        'HOST': 'localhost',  # or the address of your database server
-        'PORT': '5432',  # default port for PostgreSQL
-    }
-}
 
 
 
